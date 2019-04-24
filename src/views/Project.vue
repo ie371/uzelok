@@ -28,18 +28,18 @@
             </v-card>
           </v-tab-item>
           <v-tab-item id="tab2">
-            <v-card flat>
-              <v-card>
+            <!-- <v-card flat> -->
+              
                 <tm-tab></tm-tab>
-              </v-card>
-            </v-card>
+              
+            <!-- </v-card> -->
           </v-tab-item>
           <v-tab-item id="tab3">
-            <v-card flat>
-              <v-card>
+            
+             
                 <new-tm></new-tm>
-              </v-card>
-            </v-card>
+              
+            
           </v-tab-item>
         </v-tabs-items>
       </form>
@@ -76,3 +76,6 @@ export default {
   computed: {}
 };
 </script>
+<style scoped>
+
+</style>

@@ -1,61 +1,104 @@
 <template>
-  <v-card height="350px">
-    <v-navigation-drawer v-model="drawer" permanent absolute>
-      <v-toolbar flat class="transparent">
-        <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg">
-            </v-list-tile-avatar>
+  <div>
+    <v-navigation-drawer v-model="drawer" clipped width="400px" permanent class="framecontent">
+      <v-toolbar dense>
+        Узлы учета
+        <v-spacer></v-spacer>
 
-            <v-list-tile-content>
-              <v-list-tile-title>Узлы учета</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <v-btn dark small color="primary">
+          <v-icon dark>add</v-icon>
+        </v-btn>
       </v-toolbar>
-
-      <!-- <v-list class="pt-0" dense>
-        <v-divider></v-divider>
-
-        <v-list-tile v-for="item in items" :key="item.title" @click>
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>-->
-
       <v-expansion-panel v-model="panel" expand>
-        <v-expansion-panel-content v-for="(item, i) in 5" :key="i">
+        <v-expansion-panel-content v-for="(item, i) in 4" :key="i">
           <template v-slot:header>
             <div>Item</div>
           </template>
           <v-card>
-            <v-card-text
-              class="grey lighten-3"
-            >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</v-card-text>
+            <v-card-text class="grey lighten-3">Lorem nisi ut aliquip ex ea commodo consequat.</v-card-text>
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-navigation-drawer>
-  </v-card>
+    <!-- <div class="framecontent"></div> -->
+    <upl-form></upl-form>
+  </div>
 </template>
 <script>
+import uplForm from "@/components/uplForm.vue";
 export default {
+  components: {
+    uplForm
+  },
   data() {
     return {
       drawer: true,
-      items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
-      ],
-      panel: [false, true, true],
-      right: null
+
+      panel: [false, true, true]
     };
+  },
+  methods: {
+    add_uu() {}
   }
 };
 </script>
+<style scoped>
+.framecontent {
+  height: 100vh;
+  overflow-y: hidden;
+}
+.inp {
+  border: 1px;
+  border-color: darkgray;
+  border-radius: 3px;
+  border-style: solid;
+  width: 75px !important;
+}
+.inp::placeholder {
+  color: #868686 !important;
+  opacity: 0.5 !important;
+  font-size: 0.9em;
+}
+.arch {
+  font-size: 0.8em;
+  font-style: italic;
+  cursor: pointer;
+  list-style-type: none;
+}
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>
