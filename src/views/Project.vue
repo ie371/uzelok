@@ -13,33 +13,29 @@
         </v-tabs>
 
         <v-tabs-items v-model="model">
-          <v-tab-item id="tab0">
+          <v-tab-item value="tab0">
             <v-card flat>
               <v-card>
                 <rekvi-zit></rekvi-zit>
               </v-card>
             </v-card>
           </v-tab-item>
-          <v-tab-item id="tab1">
+          <v-tab-item value="tab1">
             <v-card flat>
               <v-card>
                 <atm-tab></atm-tab>
               </v-card>
             </v-card>
           </v-tab-item>
-          <v-tab-item id="tab2">
+          <v-tab-item value="tab2">
             <!-- <v-card flat> -->
-              
-                <tm-tab></tm-tab>
-              
+
+            <tm-tab></tm-tab>
+
             <!-- </v-card> -->
           </v-tab-item>
-          <v-tab-item id="tab3">
-            
-             
-                <new-tm></new-tm>
-              
-            
+          <v-tab-item value="tab3">
+            <new-tm></new-tm>
           </v-tab-item>
         </v-tabs-items>
       </form>
@@ -77,5 +73,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>

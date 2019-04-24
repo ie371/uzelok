@@ -1,13 +1,22 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" clipped width="400px" permanent class="framecontent">
+    <v-navigation-drawer v-model="drawer" clipped width="300px" permanent class="framecontent">
       <v-toolbar dense>
         Узлы учета
         <v-spacer></v-spacer>
 
-        <v-btn dark small color="primary">
-          <v-icon dark>add</v-icon>
-        </v-btn>
+        <!-- <div class="text-xs-center"> -->
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn flat small color="primary" v-on="on">Добавить УУ</v-btn>
+          </template>
+          <v-list>
+            <v-list-tile v-for="(item, index) in items" :key="index" @click="item.click">
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <!-- </div> -->
       </v-toolbar>
       <v-expansion-panel v-model="panel" expand>
         <v-expansion-panel-content v-for="(item, i) in 4" :key="i">
@@ -26,6 +35,7 @@
 </template>
 <script>
 import uplForm from "@/components/uplForm.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     uplForm
@@ -33,12 +43,36 @@ export default {
   data() {
     return {
       drawer: true,
-
-      panel: [false, true, true]
+      items: [
+        {
+          icon: "view_list",
+          title: "отопление/вентиляция",
+          click: () => {
+            this.$store.dispatch("change_showUploadForm");
+            //   this.$store.dispatch("change_docObj", {});
+            //   // this.selected = "";
+            //   this.$router.push("/lenta");
+          }
+        },
+        {
+          icon: "chrome_reader_mode",
+          title: "ГВС",
+          click: () => {
+            this.$store.dispatch("change_showUploadForm");
+            // this.$router.push("/docs");
+          }
+        }
+      ],
+      panel: [false, false, false]
     };
   },
+  computed: {
+    ...mapState({})
+  },
   methods: {
-    add_uu() {}
+    add_uu() {
+      this.$store.dispatch("change_showUploadForm");
+    }
   }
 };
 </script>

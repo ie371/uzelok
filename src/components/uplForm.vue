@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent width="750px">
+    <v-dialog v-model="showUploadForm" persistent width="750px">
       <v-card>
         <v-card-title class="white--text grey darken-2 py-4 title">Изменения документа</v-card-title>
 
@@ -18,10 +18,8 @@
             <v-flex xs4>
               <!-- <v-subheader>архивные файлы</v-subheader> -->
             </v-flex>
-            <v-flex  xs8>
+            <v-flex xs8>
               <li small>
-              
-
                 <span class="ml-3"></span>
               </li>
             </v-flex>
@@ -30,86 +28,49 @@
             <v-flex xs3></v-flex>
             <v-flex xs9>
               <!-- <v-subheader class="title font-weight-bold"></v-subheader> -->
-              <v-textarea
-                rows="1"
-                
-                auto-grow
-                name="input-7-4"
-                label="Оставьте комментарий"
-              ></v-textarea>
+              <v-textarea rows="1" auto-grow name="input-7-4" label="Оставьте комментарий"></v-textarea>
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-checkbox  class="shrink ml-3"></v-checkbox>
-
-          <!-- Включить после официального запуска проекта!!!!!!! -->
-          <!-- <v-spacer></v-spacer> -->
+          <v-checkbox class="shrink ml-3"></v-checkbox>
 
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <!-- <v-btn color="primary" dark v-on="on">Top</v-btn> -->
-              <input
-               
-                class="inp ml-3"
-                placeholder="версия"
-             
-                v-on="on"
-              >
+              <input class="inp ml-3" placeholder="версия" v-on="on">
             </template>
             <span>Версия изделия</span>
           </v-tooltip>
 
           <v-spacer></v-spacer>
 
-
-
           <v-btn flat @click="closeForm" color="error">Cancel</v-btn>
-          <v-btn
-
-            :disabled="disButton"
-
-            flat
-            color="primary"
-            :loading="loading4"
-          >Save</v-btn>
+          <v-btn flat color="primary">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </div>
 </template>
 
 <script>
-
 import { mapState } from "vuex";
 
-
-
 export default {
-
   data() {
     return {
-      dialog: false,
-      disButton: true,
-      noarch: true,
-      loading4: false
+      dialog: true
     };
   },
   computed: {
     ...mapState({
-
-    }),
-
+      showUploadForm: state => state.isxx.showUploadForm
+    })
   },
-  watch: {
-
-  },
+  watch: {},
   methods: {
     closeForm() {
-
-    },
-
+      this.$store.dispatch("change_showUploadForm");
+    }
   }
 };
 </script>

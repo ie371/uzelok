@@ -1438,12 +1438,12 @@ export default {
 
 
 <style scoped>
->>> .qweg {
+.qweg {
   border-radius: 0;
   box-shadow: none;
   border-color: #d4ded2;
 }
->>> .qwe {
+.qwe {
   height: 25px !important;
   font-size: 0.8em !important;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -1483,11 +1483,11 @@ export default {
 span {
   font-size: 0.8em;
 }
->>> .styled-input {
+.styled-input {
   height: 40px;
   font-size: 20pt;
 }
->>> .styled-input label[for] {
+.styled-input label[for] {
   height: 40px;
   font-size: 20pt;
 }
@@ -1501,7 +1501,7 @@ input::-webkit-inner-spin-button {
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
->>> input[type="number"] {
+.input[type="number"] {
   -moz-appearance: textfield;
 }
 </style>
