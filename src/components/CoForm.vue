@@ -4,22 +4,61 @@
       <v-card>
         <v-card-title class="white--text grey darken-2 py-4">Изменения документа</v-card-title>
 
-        <v-container grid-list-sm class="pa-3">
-          <v-layout align-start justify-center column fill-height>
-            <!-- <v-flex xs3> -->
-            <label>
-              <input class="inp" placeholder="Qco">
-              нагрузка отопления, Гкал/ч
-            </label>
-            <label>
-              <input class="inp" placeholder="Qco">
-              нагрузка отопления, Гкал/ч
-            </label>
-            <label>
-              <input class="inp" placeholder="Qco">
-              нагрузка отопления, Гкал/ч
-            </label>
-            <!-- </v-flex> -->
+        <v-container class="pa-3" fluid>
+          <v-layout align-start column>
+            <v-text-field label="Название узла учета" class="styled-input" list="uu_list"></v-text-field>
+            <datalist id="uu_list">
+              <option>Узел учёта отопления</option>
+              <option>Узел учёта вентиляции</option>
+            </datalist>
+            <div class="input-alpha">
+              <input
+                type="number"
+                placeholder="Qco"
+                step="0.000001"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="8"
+              >
+              <label>нагрузка отопления, Гкал/ч</label>
+            </div>
+            <div class="input-alpha">
+              <input
+                type="number"
+                placeholder="t1"
+                step="0.1"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="5"
+              >
+              <label>температура подачи, °C</label>
+            </div>
+            <div class="input-alpha">
+              <input
+                type="number"
+                placeholder="t2"
+                step="0.1"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="5"
+              >
+              <label>температура обратки, °C</label>
+            </div>
+            <div class="input-alpha">
+              <input
+                type="number"
+                placeholder="p1"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="3"
+              >
+              <label>давление подачи, мвст</label>
+            </div>
+            <div class="input-alpha">
+              <input
+                type="number"
+                placeholder="p2"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="3"
+              >
+              <label>давление обратки, мвст</label>
+            </div>
           </v-layout>
         </v-container>
         <v-card-actions>
@@ -41,7 +80,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      dialog: true
+      dialog: true,
+      text: ""
     };
   },
   computed: {
@@ -53,31 +93,72 @@ export default {
   methods: {
     closeForm() {
       this.$store.dispatch("change_showCoForm");
-    }
+    },
+    appendIconCallback() {},
+    prependIconCallback() {}
   }
 };
 </script>
 <style scoped>
-.inp {
-  border: 1px;
-  border-color: darkgray;
-  border-radius: 3px;
-  border-style: solid;
-  width: 75px !important;
+.input-alpha {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 0.7em;
   padding-left: 0.3em;
+  /* width: 100%; */
 }
-.inp::placeholder {
-  color: #868686 !important;
-  opacity: 0.5 !important;
+.input-alpha label {
+  /* position: absolute; */
+  left: 17px;
+  top: 7px;
+  font-size: 12px;
+  transition: all 0.1s ease-in-out;
+  pointer-events: none;
+  transform-origin: 0% 0%;
+  margin-left: 0.8em;
+  color: #757575;
+}
+.input-alpha input {
+  border: solid 1px darkgray;
+  height: 24px;
+  width: 85px;
+  padding: 2px;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 0px 0px #f00;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 14px;
+  transition: all 0.1s ease-in-out;
+  padding-left: 0.7em;
+}
+.input-alpha input:focus {
+  outline: 0;
+  border: 1px solid rgb(10, 60, 117);
+}
+.input-alpha input:focus + label {
+  color: rgb(10, 60, 117);
+}
+.input-alpha input::placeholder {
+  color: #868686;
+  opacity: 0.5;
   font-size: 0.9em;
+  padding-left: 0.5em;
 }
-.arch {
-  font-size: 0.8em;
-  font-style: italic;
-  cursor: pointer;
-  list-style-type: none;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.styled-input >>> .v-label {
+  font-size: 10pt;
+}
+
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;
