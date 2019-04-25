@@ -1,46 +1,29 @@
 <template>
   <div>
-    <v-dialog v-model="showUploadForm" persistent width="750px">
+    <v-dialog v-model="showCoForm" persistent width="750px">
       <v-card>
-        <v-card-title class="white--text grey darken-2 py-4 title">Изменения документа</v-card-title>
+        <v-card-title class="white--text grey darken-2 py-4">Изменения документа</v-card-title>
 
         <v-container grid-list-sm class="pa-3">
-          <v-layout row>
-            <v-flex xs3>
-              <v-subheader>Документ</v-subheader>
-            </v-flex>
-            <v-flex xs9>
-              <v-subheader class="title font-weight-bold">fghj</v-subheader>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row>
-            <v-flex xs4>
-              <!-- <v-subheader>архивные файлы</v-subheader> -->
-            </v-flex>
-            <v-flex xs8>
-              <li small>
-                <span class="ml-3"></span>
-              </li>
-            </v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex xs3></v-flex>
-            <v-flex xs9>
-              <!-- <v-subheader class="title font-weight-bold"></v-subheader> -->
-              <v-textarea rows="1" auto-grow name="input-7-4" label="Оставьте комментарий"></v-textarea>
-            </v-flex>
+          <v-layout align-start justify-center column fill-height>
+            <!-- <v-flex xs3> -->
+            <label>
+              <input class="inp" placeholder="Qco">
+              нагрузка отопления, Гкал/ч
+            </label>
+            <label>
+              <input class="inp" placeholder="Qco">
+              нагрузка отопления, Гкал/ч
+            </label>
+            <label>
+              <input class="inp" placeholder="Qco">
+              нагрузка отопления, Гкал/ч
+            </label>
+            <!-- </v-flex> -->
           </v-layout>
         </v-container>
         <v-card-actions>
           <v-checkbox class="shrink ml-3"></v-checkbox>
-
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <input class="inp ml-3" placeholder="версия" v-on="on">
-            </template>
-            <span>Версия изделия</span>
-          </v-tooltip>
 
           <v-spacer></v-spacer>
 
@@ -63,13 +46,13 @@ export default {
   },
   computed: {
     ...mapState({
-      showUploadForm: state => state.isxx.showUploadForm
+      showCoForm: state => state.isxx.showCoForm
     })
   },
   watch: {},
   methods: {
     closeForm() {
-      this.$store.dispatch("change_showUploadForm");
+      this.$store.dispatch("change_showCoForm");
     }
   }
 };
@@ -81,6 +64,8 @@ export default {
   border-radius: 3px;
   border-style: solid;
   width: 75px !important;
+  margin-bottom: 0.7em;
+  padding-left: 0.3em;
 }
 .inp::placeholder {
   color: #868686 !important;

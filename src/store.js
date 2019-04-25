@@ -7,23 +7,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		isxx: {
-			showUploadForm: false
+			showCoForm: false
 		}
 	},
 	modules: {
 		calcModule
 	},
 	getters: {
-		getshowUploadForm: (state) => state.isxx.showUploadForm
+		getshowCoForm: (state) => state.isxx.showCoForm
 	},
 	mutations: {
-		mu_showUploadForm(state) {
-			state.isxx.showUploadForm = !state.isxx.showUploadForm;
+		mu_showCoForm(state) {
+			state.isxx.showCoForm = !state.isxx.showCoForm;
 		}
 	},
 	actions: {
-		change_showUploadForm(context) {
-			context.commit('mu_showUploadForm');
+		change_showCoForm(context) {
+			context.commit('mu_showCoForm');
 		}
 	}
 });

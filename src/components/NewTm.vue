@@ -30,15 +30,15 @@
       </v-expansion-panel>
     </v-navigation-drawer>
     <!-- <div class="framecontent"></div> -->
-    <upl-form></upl-form>
+    <co-form></co-form>
   </div>
 </template>
 <script>
-import uplForm from "@/components/uplForm.vue";
+import CoForm from "@/components/CoForm.vue";
 import { mapState } from "vuex";
 export default {
   components: {
-    uplForm
+    CoForm
   },
   data() {
     return {
@@ -48,18 +48,14 @@ export default {
           icon: "view_list",
           title: "отопление/вентиляция",
           click: () => {
-            this.$store.dispatch("change_showUploadForm");
-            //   this.$store.dispatch("change_docObj", {});
-            //   // this.selected = "";
-            //   this.$router.push("/lenta");
+            this.$store.dispatch("change_showCoForm");
           }
         },
         {
           icon: "chrome_reader_mode",
           title: "ГВС",
           click: () => {
-            this.$store.dispatch("change_showUploadForm");
-            // this.$router.push("/docs");
+            this.$store.dispatch("change_showCoForm");
           }
         }
       ],
