@@ -2,7 +2,7 @@
   <v-container fluid grid-list-xl>
     <v-layout row justify-space-between fill-height>
       <!-- ОТОПЛЕНИЕ -->
-      <v-flex xs12 sm12 md4>
+      <v-flex xs12 sm12 md6>
         <v-card>
           <v-card-title primary-title class="pt-1 pb-0">
             <div>
@@ -322,7 +322,7 @@
       <!-- *************** -->
       <!-- ГВС -->
 
-      <v-flex xs12 sm12 md4>
+      <v-flex xs12 sm12 md6>
         <v-card>
           <v-card-title primary-title class="pt-1 pb-0">
             <div>
@@ -656,16 +656,6 @@
       <!-- *************** -->
       <!-- *************** -->
       <!-- *************** -->
-
-      <v-flex xs12 sm12 md3 lg3>
-        <v-card>
-          <v-card-title primary-title>
-            <div>
-              <div>Основное оборудование</div>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -1175,7 +1165,7 @@ export default {
     },
 
     calc(d, m) {
-      console.log("k==", d, "m==", m);
+      // console.log("k==", d, "m==", m);
       let tipu = "";
       if (
         this.isx.qco &&

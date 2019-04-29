@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-lg>
     <v-layout row wrap>
-      <v-flex xs12 sm12 md3 lg3>
+      <v-flex xs12 sm12 md8>
         <v-card>
           <v-card-title primary-title class="pt-1 pb-0">
             <div>
@@ -71,8 +71,6 @@
           </v-flex>
         </v-card>
       </v-flex>
-
-      <v-flex xs12 sm10 md4 lg6></v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -186,7 +184,7 @@ export default {
       return this.$store.getters.getisxcalc;
     },
     sb() {
-      console.log(this.$store.getters.getSbKp);
+      // console.log(this.$store.getters.getSbKp);
       return this.$store.getters.getSbKp;
     }
   },

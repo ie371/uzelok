@@ -22,7 +22,7 @@
                 <v-text-field
                   class="inputPrice"
                   v-model="sps.q"
-                  label="Нагрузка отопления, Гкал/ч"
+                  label="Нагрузка ГВС, Гкал/ч"
                   type="number"
                   hide-details
                   valid
@@ -127,7 +127,7 @@
 
 <script>
 import { mapState } from "vuex";
-import gidr from "../utils/gidr.js";
+
 export default {
   props: ["ssps", "tpf"],
   // props: { sps: Object },
@@ -140,25 +140,16 @@ export default {
 
   computed: {
     ...mapState({
-      showForm: state => state.isxx.showCoForm
+      showForm: state => state.isxx.showGvsForm
     })
   },
   watch: {},
   methods: {
     closeForm() {
-      this.$store.dispatch("change_showCoForm");
+      this.$store.dispatch("change_showGvsForm");
     },
     add_uu() {
       this.$store.dispatch("ADD_UU", this.sps);
-      const result = gidr(this.sps, "");
-      let id = Object.keys(result)[0];
-      const sa = id.split("-", 1);
-
-      this.$store.dispatch({
-        type: "ADD_GIDR_UU",
-        id: sa,
-        result
-      });
       this.closeForm();
     },
     remove_uu() {
