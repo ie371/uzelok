@@ -127,7 +127,7 @@
 
 <script>
 import { mapState } from "vuex";
-
+import gidr from "../utils/gidr.js";
 export default {
   props: ["ssps", "tpf"],
   data() {
@@ -149,6 +149,9 @@ export default {
     },
     add_uu() {
       this.$store.dispatch("ADD_UU", this.sps);
+      const result = gidr(this.sps, "");
+      var GID = JSON.stringify(result);
+      this.$store.dispatch("ADD_GIDR_UU", GID);
       this.closeForm();
     },
     remove_uu() {

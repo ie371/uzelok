@@ -51,7 +51,7 @@
               <v-flex xs3>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.t1"
+                  v-model="sps.t3"
                   type="number"
                   hide-details
                   step="0.1"
@@ -63,7 +63,7 @@
               <v-flex xs3>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.t2"
+                  v-model="sps.t4"
                   type="number"
                   hide-details
                   step="0.1"
@@ -83,7 +83,7 @@
               <v-flex xs3>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.p1"
+                  v-model="sps.p3"
                   type="number"
                   hide-details
                   step="0.1"
@@ -95,7 +95,7 @@
               <v-flex xs3 c>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.p2"
+                  v-model="sps.p4"
                   type="number"
                   hide-details
                   step="0.1"
@@ -107,6 +107,84 @@
               <v-flex xs4 class="text" text-xs-start>
                 <br>
                 <span class="lbl">Давление, мвст</span>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <v-layout>
+              <v-flex xs3>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.Kchn"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs3 c>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.txvL"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs4 class="text" text-xs-start>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.txvZ"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <v-layout>
+              <v-flex xs3>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.Ktp"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs3 c>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.Knp"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs4 class="text" text-xs-start>
+                <v-text-field
+                  class="inputPrice"
+                  v-model="sps.beta"
+                  type="number"
+                  hide-details
+                  step="0.1"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="3"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -127,7 +205,7 @@
 
 <script>
 import { mapState } from "vuex";
-
+import gidr from "../utils/gidr.js";
 export default {
   props: ["ssps", "tpf"],
   // props: { sps: Object },
@@ -150,6 +228,11 @@ export default {
     },
     add_uu() {
       this.$store.dispatch("ADD_UU", this.sps);
+      const result = gidr(this.sps, "");
+
+      console.log("result", result);
+      var GID = JSON.stringify(result);
+      this.$store.dispatch("ADD_GIDR_UU", GID);
       this.closeForm();
     },
     remove_uu() {

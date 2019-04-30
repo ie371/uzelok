@@ -1,6 +1,7 @@
 export default {
 	state: {
 		uzels: {},
+		uzel_s: [],
 		counts: {
 			co: 1,
 			vent: 1,
@@ -47,20 +48,27 @@ export default {
 			context.commit('MU_ADD_UU', pay);
 		},
 		ADD_GIDR_UU(context, payload) {
-			console.log('ADD_GIDR_UU', payload);
-			context.commit('MU_ADD_GIDR_UU', payload);
+			// console.log('ADD_GIDR_UU', payload);
+			const _q = JSON.parse(payload);
+
+			// console.log('ADD_GIDR_UU', _q);
+			context.commit('MU_ADD_GIDR_UU', _q);
 		}
 	},
 
 	mutations: {
 		MU_ADD_UU(state, payload) {
 			this.state.RasHods.uzels[payload.name] = payload.isx;
+			this.state.RasHods.uzel_s.push(payload.isx);
 		},
 		MU_ADD_GIDR_UU(state, payload) {
-			this.state.RasHods.uzels[payload.id]['GIDR'] = payload.result;
+			let id = Object.keys(payload)[0];
+			let sa = id.split('-', 1);
+			this.state.RasHods.uzels[sa].GIDR = payload;
 		},
 		MU_REMOVE_UU(state, payload) {
 			delete this.state.RasHods.uzels[payload];
+			this.state.RasHods.uzel_s.splice(this.state.RasHods.uzel_s.indexOf(payload), 1);
 		},
 		increment(state, payload) {
 			switch (payload) {

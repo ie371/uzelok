@@ -2,22 +2,22 @@
   <v-data-table
     v-model="selected"
     :headers="headers"
-    :items="desserts"
-    item-key="name"
+    :items="line"
+    item-key="id"
     select-all
     class="elevation-1"
-    :rows-per-page-items="[10]"
+    :rows-per-page-items="[8]"
   >
     <template v-slot:items="props">
       <td>
         <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
       </td>
-      <td>{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.calories }}</td>
-      <td class="text-xs-right">{{ props.item.fat }}</td>
-      <td class="text-xs-right">{{ props.item.carbs }}</td>
-      <td class="text-xs-right">{{ props.item.protein }}</td>
-      <td class="text-xs-right">{{ props.item.iron }}</td>
+      <td class="text-xs-center">{{ props.item.obozn }}</td>
+      <td class="text-xs-center">{{ props.item.Gv }}</td>
+      <td class="text-xs-center">{{ props.item.duim }}</td>
+      <td class="text-xs-center">{{ props.item.v }}</td>
+      <td class="text-xs-center">{{ props.item.gres }}</td>
+      <td class="text-xs-center">{{ props.item.dutr }}</td>
     </template>
   </v-data-table>
 </template>
@@ -30,12 +30,12 @@ export default {
       line: [],
       selected: [],
       headers: [
-        { text: "Расход", sortable: false, value: "name" },
-        { text: "Ду ИМ", sortable: false, value: "calories" },
-        { text: "Скорость", sortable: false, value: "fat" },
-        { text: "Гидр.сопротивление", sortable: false, value: "carbs" },
-        { text: "Ду трубы", sortable: false, value: "protein" },
-        { text: "IХЗ", sortable: false, value: "iron" }
+        { text: "Тр-д", sortable: false, value: "obozn" },
+        { text: "Расход", sortable: false, value: "Gv" },
+        { text: "Ду ИМ", sortable: false, value: "duim" },
+        { text: "Скорость", sortable: false, value: "v" },
+        { text: "Гидр.сопротивление", sortable: false, value: "gres" },
+        { text: "Ду трубы", sortable: false, value: "dutr" }
       ],
       desserts: [
         {
@@ -107,18 +107,28 @@ export default {
   },
   computed: {
     ...mapState({
-      uzels: state => state.RasHods.uzels
-    }),
-    isx() {
-      return this.$store.getters.getuzels;
-    }
+      uzels: state => state.RasHods.uzel_s
+    })
   },
   watch: {
-    uzels() {
-      console.log("ddddddddddddd");
-    },
-    isx() {
-      console.log("ddddddddddddd");
+    uzels(val) {
+      let er = [];
+      val.forEach(function(el) {
+        for (let _ss in el.GIDR) {
+          let xy = {};
+          if (_ss != "Ggvs") {
+            xy.id = _ss;
+            xy.obozn = el.GIDR[_ss].obozn;
+            xy.Gv = el.GIDR[_ss].Gv;
+            xy.duim = el.GIDR[_ss].diams[0];
+            xy.v = el.GIDR[_ss].gdr.V;
+            xy.gres = el.GIDR[_ss].gdr.Puu;
+            xy.dutr = el.GIDR[_ss].diams[2];
+            er.push(xy);
+          }
+        }
+      });
+      this.line = er;
     }
   },
   methods: {}

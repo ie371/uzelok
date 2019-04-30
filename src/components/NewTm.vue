@@ -77,20 +77,7 @@ export default {
           title: "отопление",
           click: () => {
             this.$store.dispatch("change_showCoForm");
-            class Usel {
-              constructor() {
-                this.name = "Узел учёта отопления";
-                this.tipe = "showCoForm";
-                (this.q = 0.25111),
-                  (this.t1 = 95),
-                  (this.t2 = 70),
-                  (this.p1 = 65),
-                  (this.p2 = 55),
-                  (this.sx_pr = 0),
-                  (this.fu = 0);
-              }
-            }
-            this.eeee = new Usel();
+            this.eeee = this.class_Usel_co();
             this.tpf = 0;
           }
         },
@@ -99,20 +86,7 @@ export default {
           title: "вентиляция",
           click: () => {
             this.$store.dispatch("change_showVentForm");
-            class Usel {
-              constructor() {
-                this.name = "Узел учёта вентиляции";
-                this.tipe = "showVentForm";
-                (this.q = 0.512346),
-                  (this.t1 = 120),
-                  (this.t2 = 70),
-                  (this.p1 = 65),
-                  (this.p2 = 55),
-                  (this.sx_pr = 0),
-                  (this.fu = 0);
-              }
-            }
-            this.eeee = new Usel();
+            this.eeee = this.class_Usel_vent();
             this.tpf = 0;
           }
         },
@@ -121,20 +95,7 @@ export default {
           title: "ГВС",
           click: () => {
             this.$store.dispatch("change_showGvsForm");
-            class Usel {
-              constructor() {
-                this.name = "Узел учёта гвс";
-                this.tipe = "showGvsForm";
-                (this.q = 0.33333),
-                  (this.t1 = 60),
-                  (this.t2 = 50),
-                  (this.p1 = 50),
-                  (this.p2 = 40),
-                  (this.sx_pr = 0),
-                  (this.fu = 0);
-              }
-            }
-            this.eeee = new Usel();
+            this.eeee = this.class_Usel_gvs();
             this.tpf = 0;
           }
         }
@@ -149,7 +110,6 @@ export default {
       uzels: state => state.RasHods.uzels
     })
   },
-
   methods: {
     openUU(uzel) {
       // this.eeee = this.uzels[uzel.id];
@@ -157,6 +117,69 @@ export default {
       this.eeee = qqq;
       this.tpf = 1;
       this.$store.dispatch(`change_${uzel.tipe}`);
+    },
+    class_Usel_co() {
+      class UselCo {
+        constructor() {
+          this.name = "Узел учёта отопления";
+          this.tipe = "showCoForm";
+          this.GIDR = {};
+          this.q = 0.555;
+          this.t1 = 95;
+          this.t2 = 70;
+          this.p1 = 65;
+          this.p2 = 55;
+          this.sx_pr = 0;
+          this.fu = 0;
+        }
+      }
+      let _aa = new UselCo();
+      return _aa;
+    },
+    class_Usel_vent() {
+      class UselVent {
+        constructor() {
+          this.name = "Узел учёта вентиляции";
+          this.tipe = "showVentForm";
+          this.GIDR = {};
+          this.q = 0.512346;
+          this.t1 = 130;
+          this.t2 = 70;
+          this.p1 = 65;
+          this.p2 = 55;
+          this.sx_pr = 0;
+          this.fu = 0;
+        }
+      }
+      let _aa = new UselVent();
+      return _aa;
+    },
+    class_Usel_gvs() {
+      class UselGvs {
+        constructor() {
+          this.name = "Узел учёта ГВС";
+          this.tipe = "showGvsForm";
+          this.GIDR = {};
+          this.q = 0.514;
+          this.qs = 0.23;
+          this.Kchn = 2.2;
+          this.t3 = 60;
+          this.t4 = 50;
+          this.p3 = 55;
+          this.p4 = 45;
+          this.sx_pr = 0;
+          this.txvL = 15;
+          this.txvZ = 5;
+          this.t11 = "";
+          this.koef = 1;
+          this.Ktp = 0.25;
+          this.Knp = 0.8;
+          this.beta = 1.3;
+          this.tu = 0;
+        }
+      }
+      let _aa = new UselGvs();
+      return _aa;
     }
   }
 };

@@ -19,11 +19,73 @@ function rashod_co(input_data, dop_rash) {
 	let name1 = input_data.id + '-T1';
 	let name2 = input_data.id + '-T2';
 
-	result[name1] = { Gv: Gv1, diams: diams_t1, gdr: gdr1 };
-	result[name2] = { Gv: Gv2, diams: diams_t2, gdr: gdr2 };
+	result[name1] = { obozn: 'T1', Gv: Gv1, diams: diams_t1, gdr: gdr1 };
+	result[name2] = { obozn: 'T2', Gv: Gv2, diams: diams_t2, gdr: gdr2 };
 	return result;
 }
 
+function rashod_gvs(input_data) {
+	const { q, t3, t4, p3, p4, Kchn, txvL, txvZ, koef, t11, Ktp, Knp, beta } = input_data;
+	let result = {};
+	let tt3 = '';
+	if (t11) {
+		tt3 = t11;
+	} else {
+		tt3 = t3;
+	}
+	let Qsr = +(q / Kchn).toFixed(6);
+	let Ggvsmax = +(koef * q * 1000 / (t3 - txvZ)).toFixed(3);
+	let Ggvssr = +(koef * Qsr * 1000 / (t3 - txvZ)).toFixed(3);
+	let Qgvscirkz = +(Ktp * Qsr / (1 + Ktp)).toFixed(6);
+	let Ggvscirkz = +(Qgvscirkz * 1000 / (tt3 - t4)).toFixed(3);
+	let Qgvsmaxl = +(q * Knp).toFixed(6);
+	let Ggvsmaxl = +(koef * Qgvsmaxl * 1000 / (t3 - txvL)).toFixed(3);
+	let Qgvssrl = +(Qgvsmaxl / Kchn).toFixed(6);
+	let Ggvssrl = +(koef * Qgvssrl * 1000 / (t3 - txvL)).toFixed(3);
+	let Qgvscirkl = +(Ktp * Qgvssrl / (1 + Ktp)).toFixed(6);
+	let Ggvscirkl = +(beta * Qgvscirkl * 1000 / (t3 - t4)).toFixed(3);
+	let Ggvscirklmax = +(Ggvscirkl * 1.5).toFixed(3);
+	let Ggvscirklmin = +(Ggvscirkl * 0.4).toFixed(3);
+	let Gm3 = +Ggvsmax.toFixed(3);
+	let Gm4 = +Ggvscirkz.toFixed(3);
+	let arr = {
+		Gm3: Gm3,
+		Gm4: Gm4,
+		Ggvsmax: Ggvsmax,
+		Ggvssr: Ggvssr,
+		Qgvscirkz: Qgvscirkz,
+		Ggvscirkz: Ggvscirkz,
+		Qgvsmaxl: Qgvsmaxl,
+		Ggvsmaxl: Ggvsmaxl,
+		Qgvssrl: Qgvssrl,
+		Ggvssrl: Ggvssrl,
+		Qgvscirkl: Qgvscirkl,
+		Ggvscirkl: Ggvscirkl,
+		Ggvscirklmax: Ggvscirklmax,
+		Ggvscirklmin: Ggvscirklmin
+	};
+	let PL3 = ro(t3, p3);
+	let Gv3 = +(Gm3 * 1000 / PL3).toFixed(3);
+
+	let PL4 = ro(t4, p4);
+	let Gv4 = +(Gm4 * 1000 / PL4).toFixed(3);
+
+	let diams_t3 = podbor(Gv3);
+	let diams_t4 = podbor(Gv4);
+	let gdr3 = gidr_rashet(Gm3, Gv3, diams_t3[0], diams_t3[2], t3, p3);
+	let gdr4 = gidr_rashet(Gm4, Gv4, diams_t4[0], diams_t4[2], t4, p4);
+	let name1 = input_data.id + '-T3';
+	let name2 = input_data.id + '-T4';
+	// return arr;
+
+	result[name1] = { obozn: 'T3', Gv: Gv3, diams: diams_t3, gdr: gdr3 };
+	result[name2] = { obozn: 'T4', Gv: Gv4, diams: diams_t4, gdr: gdr4 };
+	result['Ggvs'] = arr;
+
+	// let _aa = {}
+
+	return result;
+}
 function ro(t, p) {
 	let ror = (Math.pow(t * 0.01, 5) * (-0.033875 * p + 12.742) +
 		Math.pow(t * 0.01, 4) * (0.096667 * p - 44.488) +
@@ -64,24 +126,7 @@ function podbor(Gv) {
 	}
 	return [ d[0], v[0], d[1] ];
 }
-function podborPodp(Gm, t, p, sk) {
-	var THRESHOLD = sk;
-	var d = [];
-	var v = [];
 
-	var Gv = +(Gm / ro(t, p) * 1000).toFixed(3);
-
-	var du = [ 15, 25, 32, 40, 50, 65, 80, 100, 150, 200, 300 ];
-	du.forEach(function(el) {
-		var a1 = Math.pow(el * 0.001, 2) / 4;
-		var vs = Gv * 1 / (3.14 * a1) / 3600;
-		if (vs.toFixed(2) <= +THRESHOLD) {
-			d.push(el);
-			v.push(vs.toFixed(2));
-		}
-	});
-	return [ v[0], d[0], d[1] ];
-}
 function speed(ss, d) {
 	var a1 = Math.pow(ss.S * 0.001, 2) / 4;
 	var V = (ss.R * 1 / (3.14 * a1) / 3600).toFixed(2);
@@ -91,7 +136,6 @@ function speed(ss, d) {
 		V: V
 	};
 }
-// let gdr1 = gidr(gm, Gv1, diams_t1[1], diams_t1[2], t1, p1);
 function gidr_rashet(gm, Gv, du_im, du_tr, t, p) {
 	let ki = '_' + du_tr + du_im;
 	let zau = '_' + du_im;
@@ -317,51 +361,6 @@ function gidr_rashet(gm, Gv, du_im, du_tr, t, p) {
 		// ok: Kvs_ok
 	};
 	return Gidr;
-}
-
-function rashgvs_cirk(Qgvsmax, t3, t4, Kchn, txvL, txvZ, koef, t1, Ktp, Knp, beta) {
-	if (t1) {
-		var tt3 = t1;
-	} else {
-		var tt3 = t3;
-	}
-	// var Ktp = 0.25;
-	// var Knp = 0.8;
-	// var beta = 1.3;
-
-	var Qsr = +(Qgvsmax / Kchn).toFixed(6);
-	var Ggvsmax = +(koef * Qgvsmax * 1000 / (t3 - txvZ)).toFixed(3);
-	var Ggvssr = +(koef * Qsr * 1000 / (t3 - txvZ)).toFixed(3);
-	var Qgvscirkz = +(Ktp * Qsr / (1 + Ktp)).toFixed(6);
-	var Ggvscirkz = +(Qgvscirkz * 1000 / (tt3 - t4)).toFixed(3);
-	var Qgvsmaxl = +(Qgvsmax * Knp).toFixed(6);
-	var Ggvsmaxl = +(koef * Qgvsmaxl * 1000 / (t3 - txvL)).toFixed(3);
-	var Qgvssrl = +(Qgvsmaxl / Kchn).toFixed(6);
-	var Ggvssrl = +(koef * Qgvssrl * 1000 / (t3 - txvL)).toFixed(3);
-	var Qgvscirkl = +(Ktp * Qgvssrl / (1 + Ktp)).toFixed(6);
-	var Ggvscirkl = +(beta * Qgvscirkl * 1000 / (t3 - t4)).toFixed(3);
-	var Ggvscirklmax = +(Ggvscirkl * 1.5).toFixed(3);
-	var Ggvscirklmin = +(Ggvscirkl * 0.4).toFixed(3);
-	var Gm3 = +Ggvsmax.toFixed(3);
-	var Gm4 = +Ggvscirkz.toFixed(3);
-
-	var arr = {
-		Gm3: Gm3,
-		Gm4: Gm4,
-		Ggvsmax: Ggvsmax,
-		Ggvssr: Ggvssr,
-		Qgvscirkz: Qgvscirkz,
-		Ggvscirkz: Ggvscirkz,
-		Qgvsmaxl: Qgvsmaxl,
-		Ggvsmaxl: Ggvsmaxl,
-		Qgvssrl: Qgvssrl,
-		Ggvssrl: Ggvssrl,
-		Qgvscirkl: Qgvscirkl,
-		Ggvscirkl: Ggvscirkl,
-		Ggvscirklmax: Ggvscirklmax,
-		Ggvscirklmin: Ggvscirklmin
-	};
-	return arr;
 }
 
 function pr(isx, sk, peres, R, tip_rascheta) {
@@ -622,12 +621,12 @@ function gidr(input_data, dop_rash) {
 			rashods = rashod_co(input_data);
 			break;
 		case 'showGvsForm':
-			rashods = rashod_co(input_data);
+			rashods = rashod_gvs(input_data);
 			break;
 		default:
 			break;
 	}
-	console.log('input_data', input_data);
+	// console.log('input_data', input_data);
 
 	return rashods;
 }

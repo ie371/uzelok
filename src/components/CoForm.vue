@@ -151,14 +151,8 @@ export default {
     add_uu() {
       this.$store.dispatch("ADD_UU", this.sps);
       const result = gidr(this.sps, "");
-      let id = Object.keys(result)[0];
-      const sa = id.split("-", 1);
-
-      this.$store.dispatch({
-        type: "ADD_GIDR_UU",
-        id: sa,
-        result
-      });
+      var GID = JSON.stringify(result);
+      this.$store.dispatch("ADD_GIDR_UU", GID);
       this.closeForm();
     },
     remove_uu() {
