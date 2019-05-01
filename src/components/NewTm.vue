@@ -21,7 +21,7 @@
         <v-list two-line subheader>
           <v-list-tile v-for="uzel in uzels" :key="uzel.id" avatar @click="openUU(uzel)">
             <v-list-tile-content>
-              <v-list-tile-title>{{ uzel.name }}</v-list-tile-title>
+              <v-list-tile-title>{{ uzel.nazv }}</v-list-tile-title>
               <v-list-tile-sub-title
                 class="sub"
               >{{ uzel.id}} , {{ uzel.q }} Гкал/ч, {{ uzel.t1 }}/{{ uzel.t2 }}°C, {{ uzel.p1 }}/{{ uzel.p2 }} мвст</v-list-tile-sub-title>
@@ -35,13 +35,18 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
-      <!-- <div class="framecontent">
-        <v-flex>
-          <span>здесь будут кнопки, чекбоксы и прочее, в зависмости от массива узлов</span>
+      <div class="framecontent">
+        <v-flex xs12 d-flex>
+          <v-layout align-center justify-center column fill-height>
+            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+          </v-layout>
         </v-flex>
 
-        <v-btn flat @click>отмена</v-btn>
-      </div>-->
+        <!-- <v-btn flat @click>отмена</v-btn> -->
+      </div>
       <div class="framecontent2">
         <v-flex>
           <uu-table></uu-table>
@@ -77,7 +82,8 @@ export default {
           title: "отопление",
           click: () => {
             this.$store.dispatch("change_showCoForm");
-            this.eeee = this.class_Usel_co();
+            let _cou = this.counts.co;
+            this.eeee = this.class_Usel_co(_cou);
             this.tpf = 0;
           }
         },
@@ -86,7 +92,8 @@ export default {
           title: "вентиляция",
           click: () => {
             this.$store.dispatch("change_showVentForm");
-            this.eeee = this.class_Usel_vent();
+            let _cou = this.counts.vent;
+            this.eeee = this.class_Usel_vent(_cou);
             this.tpf = 0;
           }
         },
@@ -95,11 +102,13 @@ export default {
           title: "ГВС",
           click: () => {
             this.$store.dispatch("change_showGvsForm");
-            this.eeee = this.class_Usel_gvs();
+            let _cou = this.counts.gvs;
+            this.eeee = this.class_Usel_gvs(_cou);
             this.tpf = 0;
           }
         }
-      ]
+      ],
+      sx_pr: ["Закрытая", "Открытая"]
     };
   },
   computed: {
@@ -107,6 +116,7 @@ export default {
       showCoForm: state => state.isxx.showCoForm,
       showVentForm: state => state.isxx.showVentForm,
       showGvsForm: state => state.isxx.showGvsForm,
+      counts: state => state.RasHods.counts,
       uzels: state => state.RasHods.uzels
     })
   },
@@ -118,10 +128,12 @@ export default {
       this.tpf = 1;
       this.$store.dispatch(`change_${uzel.tipe}`);
     },
-    class_Usel_co() {
+    class_Usel_co(_cou) {
       class UselCo {
-        constructor() {
-          this.name = "Узел учёта отопления";
+        constructor(_cou) {
+          this.name = "uselCo_" + _cou;
+          this.id = "uselCo_" + _cou;
+          this.nazv = "Узел учёта отопления";
           this.tipe = "showCoForm";
           this.GIDR = {};
           this.q = 0.555;
@@ -133,13 +145,17 @@ export default {
           this.fu = 0;
         }
       }
-      let _aa = new UselCo();
+      let _aa = new UselCo(_cou);
       return _aa;
     },
-    class_Usel_vent() {
+    class_Usel_vent(_cou) {
       class UselVent {
-        constructor() {
-          this.name = "Узел учёта вентиляции";
+        constructor(_cou) {
+          // this.id = "uselVent_" + _cou;
+          // this.name = "Узел учёта вентиляции";
+          this.name = "uselVent_" + _cou;
+          this.id = "uselVent_" + _cou;
+          this.nazv = "Узел учёта вентиляции";
           this.tipe = "showVentForm";
           this.GIDR = {};
           this.q = 0.512346;
@@ -151,13 +167,17 @@ export default {
           this.fu = 0;
         }
       }
-      let _aa = new UselVent();
+      let _aa = new UselVent(_cou);
       return _aa;
     },
-    class_Usel_gvs() {
+    class_Usel_gvs(_cou) {
       class UselGvs {
-        constructor() {
-          this.name = "Узел учёта ГВС";
+        constructor(_cou) {
+          // this.id = "uselGvs_" + _cou;
+          // this.name = "Узел учёта ГВС";
+          this.name = "uselGvs_" + _cou;
+          this.id = "uselGvs_" + _cou;
+          this.nazv = "Узел учёта ГВС";
           this.tipe = "showGvsForm";
           this.GIDR = {};
           this.q = 0.514;
@@ -178,22 +198,42 @@ export default {
           this.tu = 0;
         }
       }
-      let _aa = new UselGvs();
+      let _aa = new UselGvs(_cou);
       return _aa;
     }
   }
 };
 </script>
 <style scoped>
+.inputPrice {
+  padding: 0;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+.inputPrice >>> .v-label {
+  font-size: 10pt;
+  opacity: 0.5;
+}
+.lbl {
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+.inputPrice >>> input[type="number"] {
+  -moz-appearance: textfield;
+}
+.inputPrice >>> input::-webkit-outer-spin-button,
+.inputPrice >>> input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .framecontent {
-  width: 120px;
+  width: 200px;
   height: 80vh;
   overflow-y: hidden;
   /* border: solid 1px darkgray; */
   padding: 0.8em;
 }
 .framecontent2 {
-  width: 65%;
+  /* width: 65%; */
   height: 80vh;
   overflow-y: hidden;
   /* border: solid 1px darkgray; */

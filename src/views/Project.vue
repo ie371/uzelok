@@ -66,7 +66,7 @@ export default {
         { name: "newТМ" }
       ],
 
-      model: "tab1"
+      model: "tab3"
     };
   },
   computed: {}

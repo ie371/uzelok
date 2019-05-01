@@ -9,7 +9,7 @@
               <v-flex xs12>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.name"
+                  v-model="sps.nazv"
                   label="Название узла учета"
                   clearable
                 ></v-text-field>
@@ -230,7 +230,7 @@ export default {
       this.$store.dispatch("ADD_UU", this.sps);
       const result = gidr(this.sps, "");
 
-      console.log("result", result);
+      // console.log("result", result);
       var GID = JSON.stringify(result);
       this.$store.dispatch("ADD_GIDR_UU", GID);
       this.closeForm();

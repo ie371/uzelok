@@ -9,7 +9,7 @@
               <v-flex xs12>
                 <v-text-field
                   class="inputPrice"
-                  v-model="sps.name"
+                  v-model="sps.nazv"
                   label="Название узла учета"
                   clearable
                 ></v-text-field>
