@@ -1,46 +1,33 @@
 <template>
   <div>
-    <!-- <v-layout  flex row justify-space-between>  -->
     <v-flex xs12>
-      <form
-        method="post"
-        target="_blank"
-        enctype="multipart/form-data"
-        onkeypress="if(event.keyCode == 13) return false;"
-      >
-        <v-tabs slot="extension" v-model="model" left color slider-color="blue">
-          <v-tab v-for="(zag, i) in zagData" :key="i" :href="`#tab${i}`">{{zag.name}}</v-tab>
-        </v-tabs>
+      <v-tabs slot="extension" v-model="model" left color slider-color="blue">
+        <v-tab v-for="(zag, i) in zagData" :key="i" :href="`#tab${i}`">{{zag.name}}</v-tab>
+      </v-tabs>
 
-        <v-tabs-items v-model="model">
-          <v-tab-item value="tab0">
-            <v-card flat>
-              <v-card>
-                <rekvi-zit></rekvi-zit>
-              </v-card>
+      <v-tabs-items v-model="model">
+        <v-tab-item value="tab0">
+          <v-card flat>
+            <v-card>
+              <rekvi-zit></rekvi-zit>
             </v-card>
-          </v-tab-item>
-          <v-tab-item value="tab1">
-            <v-card flat>
-              <v-card>
-                <atm-tab></atm-tab>
-              </v-card>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab1">
+          <v-card flat>
+            <v-card>
+              <atm-tab></atm-tab>
             </v-card>
-          </v-tab-item>
-          <v-tab-item value="tab2">
-            <!-- <v-card flat> -->
-
-            <tm-tab></tm-tab>
-
-            <!-- </v-card> -->
-          </v-tab-item>
-          <v-tab-item value="tab3">
-            <new-tm></new-tm>
-          </v-tab-item>
-        </v-tabs-items>
-      </form>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item value="tab2">
+          <tm-tab></tm-tab>
+        </v-tab-item>
+        <v-tab-item value="tab3">
+          <new-tm></new-tm>
+        </v-tab-item>
+      </v-tabs-items>
     </v-flex>
-    <!-- </v-layout> -->
   </div>
 </template>
 

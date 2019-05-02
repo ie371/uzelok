@@ -37,15 +37,9 @@ export default {
 			this.state.RasHods.uzels[sa].GIDR = payload;
 		},
 		MU_REMOVE_UU(state, payload) {
-			let _arr = this.state.RasHods.uzel_s;
-			let _aa = '';
-			_arr.forEach(function(el) {
-				if (el.id == payload) {
-					_aa = _arr.indexOf(el);
-				}
-			});
+			this.state.numb_uu--;
 			delete this.state.RasHods.uzels[payload];
-			// this.state.RasHods.uzel_s.splice(this.state.RasHods.uzel_s.indexOf(payload), 1);
+			let _aa = this.state.RasHods.uzel_s.map((x) => x.id).indexOf(payload);
 			this.state.RasHods.uzel_s.splice(_aa, 1);
 		},
 		increment(state, payload) {

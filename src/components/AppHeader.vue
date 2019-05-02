@@ -16,7 +16,7 @@
     <v-toolbar app dark class="primary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
       <router-link to="/" tag="span" style="cursor:pointer">
-        <v-toolbar-title v-text="'Интелприбор'"></v-toolbar-title>
+        <v-toolbar-title v-text="'HOME'"></v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
 

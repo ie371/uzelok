@@ -1,14 +1,16 @@
 <template>
-  <div>
+  <div syyle="height:75vh;">
     <v-layout align-start row fill-height>
-      <v-navigation-drawer width="300px" clipped height="75vh" permanent>
-        <v-toolbar dense>
-          Узлы учета
+      <v-navigation-drawer height="75vh" permanent>
+        <v-toolbar>
+          <v-flex>
+            <v-switch v-model="switch1"></v-switch>
+          </v-flex>
           <v-spacer></v-spacer>
 
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn flat small color="primary" v-on="on">Добавить УУ</v-btn>
+              <v-btn flat small color="primary" v-on="on" :disabled="count>=4">Добавить УУ</v-btn>
             </template>
             <v-list>
               <v-list-tile v-for="(item, index) in items" :key="index" @click="item.click">
@@ -35,23 +37,22 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
-      <div class="framecontent">
-        <v-flex xs12 d-flex>
-          <v-layout align-center justify-center column fill-height>
-            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
-            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
-            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
-            <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
-          </v-layout>
-        </v-flex>
-
-        <!-- <v-btn flat @click>отмена</v-btn> -->
-      </div>
-      <div class="framecontent2">
-        <v-flex>
-          <uu-table></uu-table>
-        </v-flex>
-      </div>
+      <!-- <div class="framecontent"> -->
+      <v-flex xs2 v-if="switch1">
+        <v-layout align-center justify-center column fill-height>
+          <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+          <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+          <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+          <v-select class="inputPrice" :items="sx_pr" label="Схема теплоснабжения"></v-select>
+        </v-layout>
+      </v-flex>
+      <!-- </div> -->
+      <!-- <div class="framecontent2"> -->
+      <v-flex>
+        <uu-table :swich="switch1"></uu-table>
+        <!-- <ite-rator></ite-rator> -->
+      </v-flex>
+      <!-- </div> -->
 
       <co-form v-if="showCoForm" :ssps="eeee" :tpf="tpf"></co-form>
       <vent-form v-if="showVentForm" :ssps="eeee" :tpf="tpf"></vent-form>
@@ -64,16 +65,20 @@ import CoForm from "@/components/CoForm.vue";
 import VentForm from "@/components/VentForm.vue";
 import GvsForm from "@/components/GvsForm.vue";
 import UuTable from "@/components/UuTable.vue";
+import IteRator from "@/components/iterator.vue";
 import { mapState } from "vuex";
 export default {
   components: {
     CoForm,
     VentForm,
     GvsForm,
-    UuTable
+    UuTable,
+    IteRator
   },
   data() {
     return {
+      switch1: true,
+      // count: 0,
       eeee: {},
       tpf: "",
       items: [
@@ -85,6 +90,8 @@ export default {
             let _cou = this.counts.co;
             this.eeee = this.class_Usel_co(_cou);
             this.tpf = 0;
+            this.$store.dispatch("change_numb_uu");
+            // this.count++;
           }
         },
         {
@@ -95,6 +102,8 @@ export default {
             let _cou = this.counts.vent;
             this.eeee = this.class_Usel_vent(_cou);
             this.tpf = 0;
+            this.$store.dispatch("change_numb_uu");
+            // this.count++;
           }
         },
         {
@@ -105,6 +114,8 @@ export default {
             let _cou = this.counts.gvs;
             this.eeee = this.class_Usel_gvs(_cou);
             this.tpf = 0;
+            this.$store.dispatch("change_numb_uu");
+            // this.count++;
           }
         }
       ],
@@ -116,6 +127,7 @@ export default {
       showCoForm: state => state.isxx.showCoForm,
       showVentForm: state => state.isxx.showVentForm,
       showGvsForm: state => state.isxx.showGvsForm,
+      count: state => state.numb_uu,
       counts: state => state.RasHods.counts,
       uzels: state => state.RasHods.uzels
     })
@@ -235,7 +247,7 @@ export default {
 .framecontent2 {
   /* width: 65%; */
   height: 80vh;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   /* border: solid 1px darkgray; */
   /* padding: 0.8em; */
 }

@@ -10,7 +10,8 @@ export default new Vuex.Store({
 			showCoForm: false,
 			showVentForm: false,
 			showGvsForm: false
-		}
+		},
+		numb_uu: 0
 	},
 	modules: {
 		calcModule,
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 		// getshowVentForm: (state) => state.isxx.showVentForm
 	},
 	mutations: {
+		mu_numb_uu(state) {
+			this.state.numb_uu++;
+		},
 		mu_showCoForm(state) {
 			state.isxx.showCoForm = !state.isxx.showCoForm;
 		},
@@ -32,6 +36,9 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
+		change_numb_uu(context, payload) {
+			context.commit('mu_numb_uu', payload);
+		},
 		change_showCoForm(context) {
 			context.commit('mu_showCoForm');
 		},
